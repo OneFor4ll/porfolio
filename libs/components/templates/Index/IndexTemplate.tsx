@@ -3,12 +3,15 @@ import "./index.css";
 import type { NextPage } from 'next'
 import { ThemeProvider } from "../../../../app/ThemeContext";
 import Navbar from "../../../../app/Navbar";
-import Page from "@/app/Header";
+import Header from "../../pages/index/Header";
 
 const Home: NextPage = () => {
 return (
   <>
-    <Page />
+  <ThemeProvider>
+    <Navbar />
+    <Header />
+  </ThemeProvider>
   </>
 )
 }
