@@ -4,7 +4,7 @@ import React from "react";
 import { Button, Box, Typography } from "@mui/material";
 import { useTheme } from "@/app/ThemeContext";
 
-const Page = () => {
+const Header = () => {
   const { darkMode } = useTheme();
 
   return (
@@ -32,4 +32,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Header;

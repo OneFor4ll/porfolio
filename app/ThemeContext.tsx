@@ -1,16 +1,11 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
-
-
-// Define the shape of the context
 interface ThemeContextType {
   darkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-// Create a context with default undefined value
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-// ThemeProvider component
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [darkMode, setDarkMode] = useState(false);
 
@@ -25,7 +20,6 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// Custom hook to use the ThemeContext
 export const useTheme = (): ThemeContextType => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
