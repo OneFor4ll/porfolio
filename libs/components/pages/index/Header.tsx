@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React from "react";
 import { Button, Box, Typography } from "@mui/material";
-import { useTheme } from "@/app/ThemeContext";
+import { useTheme } from "@/app/Theme";
+
 
 const Header = () => {
   const { darkMode } = useTheme();
@@ -13,9 +14,12 @@ const Header = () => {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      height="100%"
       gap={10}
-      sx={{ backgroundColor: darkMode ? "gray" : "inherit", color: darkMode ? "white" : "inherit", height: "100vh" }}
+      minHeight="100vh"
+      sx={{
+        backgroundColor: darkMode ? "gray" : "inherit",
+        color: darkMode ? "white" : "inherit",
+      }}
     >
       <Typography variant="h4" color={darkMode ? "white" : "inherit"}>
         Welcome to My Portfolio
