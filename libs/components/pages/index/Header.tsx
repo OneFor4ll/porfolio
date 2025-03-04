@@ -1,12 +1,9 @@
-"use client";
+"use client"
 
-import React from "react";
-import { Button, Box, Typography } from "@mui/material";
-import { useTheme } from "@/app/Theme";
-
+import React from "react"
+import { Button, Box, Typography } from "@mui/material"
 
 const Header = () => {
-  const { darkMode } = useTheme();
 
   return (
     <Box
@@ -15,13 +12,9 @@ const Header = () => {
       justifyContent="center"
       alignItems="center"
       gap={10}
-      minHeight="100vh"
-      sx={{
-        backgroundColor: darkMode ? "gray" : "inherit",
-        color: darkMode ? "white" : "inherit",
-      }}
+      minHeight="90vh"
     >
-      <Typography variant="h4" color={darkMode ? "white" : "inherit"}>
+      <Typography variant="h4">
         Welcome to My Portfolio
       </Typography>
       <Box display="flex" gap={10}>
@@ -33,7 +26,7 @@ const Header = () => {
         </Button>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
