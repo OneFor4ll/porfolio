@@ -2,8 +2,11 @@
 
 import React from "react"
 import { Button, Box, Typography } from "@mui/material"
+import { useRouter } from "next/navigation" 
+
 
 const Header = () => {
+  const router = useRouter() 
 
   return (
     <Box
@@ -21,7 +24,11 @@ const Header = () => {
         <Button variant="contained" color="primary">
           Projects
         </Button>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => router.push("/about-page")} 
+        >
           About Me
         </Button>
       </Box>

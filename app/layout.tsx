@@ -1,20 +1,43 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+"use client"
 
-const inter = Inter({ subsets: ["latin"] })
+import React from "react"
+import { ThemeProvider, createTheme, CssBaseline } from "@mui/material"
+import Navbar from "./Navbar"
 
-export const metadata: Metadata = {
-  title: "Portfolio",
-}
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
+  const [darkMode] = React.useState(false)
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: darkMode ? "dark" : "light",
+          primary: {
+            main: darkMode ? "#90caf9" : "#1976d2",
+          },
+          background: {
+            default: darkMode ? "#393939" : "#ffffff",
+            paper: darkMode ? "#393939" : "#f5f5f5",
+          },
+          text: {
+            primary: darkMode ? "#ffffff" : "#000000",
+          },
+        },
+      }),
+    [darkMode]
+  )
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Navbar />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
+
+export default RootLayout
