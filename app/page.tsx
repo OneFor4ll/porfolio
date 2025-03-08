@@ -2,12 +2,12 @@
 
 import React from "react"
 import type { NextPage } from "next"
-import Header from "../libs/components/sections/index/Header"
+import Main from "../libs/components/sections/index/Main"
 
 const Home: NextPage = () => {
   return (
     <>
-      <Header />
+      <Main />
     </>
   )
 }

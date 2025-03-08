@@ -114,7 +114,7 @@ const AboutPage: React.FC = () => {
                 <Typography component="span" fontWeight="bold">
                   Programming:
                 </Typography>{" "}
-                JavaScript, TypeScript, PHP, React, Material UI, SQL, Java, HTML, CSS, JSON.
+                JavaScript, TypeScript, PHP, React, Material UI, SQL, Java, CodeIgniter, JSON.
               </Typography>
               <Typography variant="body1" paragraph>
                 <Typography component="span" fontWeight="bold">
@@ -126,7 +126,7 @@ const AboutPage: React.FC = () => {
                 <Typography component="span" fontWeight="bold">
                   Tools:
                 </Typography>{" "}
-                Git, Bootstrap, Microsoft Office, jQuery.
+                Git, Bootstrap, Dynamics 365, jQuery.
               </Typography>
             </Paper>
           </Grid>
