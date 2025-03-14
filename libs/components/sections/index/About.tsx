@@ -1,9 +1,13 @@
 "use client"
 
 import React from "react"
-import { Container, Typography, Box, Avatar, Grid, Paper } from "@mui/material"
+import { Container, Typography, Box, Avatar, Grid, Paper, useMediaQuery, useTheme } from "@mui/material"
 
 const AboutPage: React.FC = () => {
+  const theme = useTheme()
+  const isTablet = useMediaQuery(theme.breakpoints.only("sm"))
+  const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
+
   return (
     <Box
       sx={{
@@ -11,35 +15,34 @@ const AboutPage: React.FC = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        py: 5,
+        py: isMobile ? 3 : 5,
       }}
     >
       <Container maxWidth="md">
-        <Box display="flex" justifyContent="center" mb={8}>
+        <Box display="flex" justifyContent="center" mb={isMobile ? 4 : 8}>
           <Avatar
             src="/About me/me.jpg"
             alt="Profile Picture"
             sx={{
-              width: 150,
-              height: 150,
+              width: isMobile ? 100 : isTablet ? 130 : 150,
+              height: isMobile ? 100 : isTablet ? 130 : 150,
               border: "4px solid white",
               boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
             }}
           />
         </Box>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={isMobile ? 2 : 4}>
           <Grid item xs={12} md={6}>
             <Paper
               elevation={6}
               sx={{
-                p: 3,
+                p: isMobile ? 2 : 3,
                 borderRadius: 3,
-                backgroundColor: "rgba(255, 255, 255, 0.76)",
                 backdropFilter: "blur(10px)",
               }}
             >
-              <Typography variant="h4" gutterBottom>
+              <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
                 About Me
               </Typography>
               <Typography variant="body1" paragraph>
@@ -58,13 +61,12 @@ const AboutPage: React.FC = () => {
             <Paper
               elevation={6}
               sx={{
-                p: 3,
+                p: isMobile ? 2 : 3,
                 borderRadius: 3,
-                backgroundColor: "rgba(255, 255, 255, 0.76)",
                 backdropFilter: "blur(10px)",
               }}
             >
-              <Typography variant="h4" gutterBottom>
+              <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
                 Experience
               </Typography>
 
@@ -101,13 +103,12 @@ const AboutPage: React.FC = () => {
             <Paper
               elevation={6}
               sx={{
-                p: 3,
+                p: isMobile ? 2 : 3,
                 borderRadius: 3,
-                backgroundColor: "rgba(255, 255, 255, 0.76)",
                 backdropFilter: "blur(10px)",
               }}
             >
-              <Typography variant="h4" gutterBottom>
+              <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
                 Skills
               </Typography>
               <Typography variant="body1" paragraph>
