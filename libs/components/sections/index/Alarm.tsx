@@ -14,6 +14,8 @@ import {
   Stack,
   ToggleButtonGroup,
   ToggleButton,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Clock from "react-clock"
@@ -26,6 +28,7 @@ interface Alarm {
   enabled: boolean
   note: string
   days: string[]
+  isSnoozed?: boolean
 }
 
 const DAYS_OF_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -42,6 +45,9 @@ const AlarmPage: React.FC = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [snoozeMessage, setSnoozeMessage] = useState<string | null>(null)
 
+  const theme = useTheme()
+  const isTablet = useMediaQuery(theme.breakpoints.only('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
 
   const handleMusicUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -88,6 +94,10 @@ const AlarmPage: React.FC = () => {
               const audioUrl = URL.createObjectURL(alarmMusic)
               playMusic(audioUrl)
             }
+
+            if (alarm.isSnoozed) {
+              setAlarms((prevAlarms) => prevAlarms.filter((a) => a.id !== alarm.id))
+            }
           }
         }
       })
@@ -95,7 +105,6 @@ const AlarmPage: React.FC = () => {
 
     return () => clearInterval(checkAlarm)
   }, [alarms, formattedTime, currentDay, alarmMusic, activeAlarm])
-
 
   const handleSetAlarm = () => {
     if (alarmTime && selectedDays.length > 0) {
@@ -175,7 +184,6 @@ const AlarmPage: React.FC = () => {
     setActiveAlarm(null)
   }
 
-
   const handleLater = () => {
     if (audioRef.current) {
       audioRef.current.pause()
@@ -183,6 +191,12 @@ const AlarmPage: React.FC = () => {
     }
 
     if (activeAlarm) {
+      setAlarms((prevAlarms) =>
+        prevAlarms.map((alarm) =>
+          alarm.id === activeAlarm.id ? { ...alarm, enabled: false } : alarm
+        )
+      )
+
       const snoozeTime = new Date()
       snoozeTime.setMinutes(snoozeTime.getMinutes() + 5)
       const snoozeFormatted = snoozeTime.toLocaleTimeString("en-US", {
@@ -191,18 +205,21 @@ const AlarmPage: React.FC = () => {
         minute: "2-digit",
       })
 
-      setSnoozeMessage(`Alarm will ring again at ${snoozeFormatted}`)
 
+      const newAlarm: Alarm = {
+        id: Date.now(),
+        time: snoozeFormatted,
+        enabled: true,
+        note: `Snoozed: ${activeAlarm.note}`,
+        days: activeAlarm.days,
+        isSnoozed: true,
+      }
+
+      setAlarms((prevAlarms) => [...prevAlarms, newAlarm])
+
+      setSnoozeMessage(`Alarm will ring again at ${snoozeFormatted}`)
       setTimeout(() => {
         setSnoozeMessage(null)
-      }, 5 * 60 * 1000)
-
-      setTimeout(() => {
-        setAlarms((prevAlarms) =>
-          prevAlarms.map((alarm) =>
-            alarm.id === activeAlarm.id ? { ...alarm, enabled: true, time: snoozeFormatted } : alarm
-          )
-        )
       }, 5 * 60 * 1000)
     }
 
@@ -210,8 +227,24 @@ const AlarmPage: React.FC = () => {
   }
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" minHeight="90vh" gap={10} px={4}>
-      <Box sx={{ maxHeight: "300px", overflowY: "auto", width: "300px", border: "1px solid #ccc", borderRadius: "8px", p: 1 }}>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="90vh"
+      gap={isMobile ? 8 : isTablet ? 5 : 10}
+      px={isMobile ? 5 : 4}
+      flexDirection={isMobile ? "column" : "row"}
+      sx={{ paddingTop: isMobile ? 3 : 0 }}
+    >
+      <Box sx={{
+        maxHeight: "300px",
+        overflowY: "auto",
+        width: isMobile ? "100%" : "300px",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        p: 1
+      }}>
         <Typography variant="h6" textAlign="center">Saved Alarms</Typography>
         {alarms.length > 0 ? (
           <List>
@@ -258,13 +291,13 @@ const AlarmPage: React.FC = () => {
       </Box>
 
       <Box textAlign="center" display="flex" flexDirection="column" alignItems="center">
-        <Clock value={currentTime} size={150} />
+        <Clock value={currentTime} size={isMobile ? 100 : 150} />
         <Typography variant="h4" sx={{ fontWeight: "bold", mt: 2 }}>
           {formattedTime}
         </Typography>
       </Box>
 
-      <Box display="flex" flexDirection="column" alignItems="center" gap={2} sx={{ maxWidth: "300px" }}>
+      <Box display="flex" flexDirection="column" alignItems="center" gap={2} sx={{ maxWidth: isMobile ? "100%" : "300px" }}>
         <TextField
           label="Select Time"
           type="time"
@@ -315,7 +348,7 @@ const AlarmPage: React.FC = () => {
           ))}
         </ToggleButtonGroup>
 
-        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <Stack direction="row" spacing={2} sx={{ mt: 2, paddingBottom: isMobile ? 5 : 0 }}>
           <Button variant="contained" color="primary" onClick={handleSetAlarm}>
             {editingAlarmId !== null ? "Update Alarm" : "Set Alarm"}
           </Button>
