@@ -21,6 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import Clock from "react-clock"
 import "react-clock/dist/Clock.css"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
+import { motion, AnimatePresence } from "framer-motion"
 
 interface Alarm {
   id: number
@@ -48,6 +49,16 @@ const AlarmPage: React.FC = () => {
   const theme = useTheme()
   const isTablet = useMediaQuery(theme.breakpoints.only('sm'))
   const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
+
+  useEffect(() => {
+    if (snoozeMessage) {
+      const timer = setTimeout(() => {
+        setSnoozeMessage(null)
+      }, 5000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [snoozeMessage])
 
   const handleMusicUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -210,7 +221,7 @@ const AlarmPage: React.FC = () => {
         id: Date.now(),
         time: snoozeFormatted,
         enabled: true,
-        note: `Snoozed: ${activeAlarm.note}`,
+        note: `Snoozed`,
         days: activeAlarm.days,
         isSnoozed: true,
       }
@@ -291,7 +302,21 @@ const AlarmPage: React.FC = () => {
       </Box>
 
       <Box textAlign="center" display="flex" flexDirection="column" alignItems="center">
-        <Clock value={currentTime} size={isMobile ? 100 : 150} />
+        <Box
+          sx={{
+            border: `2px solid ${theme.palette.mode === 'dark' ? '#fff' : '#000'}`,
+            borderRadius: '50%',
+            padding: '10px',
+            backgroundColor: theme.palette.mode === 'dark' ? '#333' : '#fff',
+          }}
+        >
+          <Clock
+            value={currentTime}
+            size={isMobile ? 150 : 150}
+            renderNumbers
+
+          />
+        </Box>
         <Typography variant="h4" sx={{ fontWeight: "bold", mt: 2 }}>
           {formattedTime}
         </Typography>
@@ -360,44 +385,75 @@ const AlarmPage: React.FC = () => {
         </Stack>
       </Box>
 
-      {activeAlarm && (
+      {snoozeMessage && (
         <Box
           sx={{
             position: "fixed",
-            top: "0",
-            left: "0",
-            right: "0",
-            bottom: "0",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            zIndex: 9999,
+            bottom: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "8px",
+            zIndex: 10000,
+            animation: "fadeInOut 5s ease-in-out",
+            "@keyframes fadeInOut": {
+              "0%": { opacity: 0 },
+              "10%": { opacity: 1 },
+              "90%": { opacity: 1 },
+              "100%": { opacity: 0 },
+            },
           }}
         >
-          <Box
-            sx={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "8px",
-              textAlign: "center",
-              width: "300px",
-              boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            <Typography variant="h6">{`Alarm at ${activeAlarm.time}`}</Typography>
-            <Typography variant="body1">{activeAlarm.note}</Typography>
-            <Stack direction="row" spacing={2} sx={{ mt: 2, justifyContent: "center" }}>
-              <Button variant="contained" color="error" onClick={handleTurnOff}>
-                Turn Off
-              </Button>
-              <Button variant="outlined" color="primary" onClick={handleLater}>
-                Later
-              </Button>
-            </Stack>
-          </Box>
+          <Typography variant="body1">{snoozeMessage}</Typography>
         </Box>
       )}
+
+      <AnimatePresence>
+        {activeAlarm && (
+          <Box
+            sx={{
+              position: "fixed",
+              top: "0",
+              left: "0",
+              right: "0",
+              bottom: "0",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "rgba(0, 0, 0, 0.6)",
+              zIndex: 9999,
+            }}
+          >
+            <motion.div
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{
+                backgroundColor: "#fff",
+                padding: "20px",
+                borderRadius: "8px",
+                textAlign: "center",
+                width: "300px",
+                boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
+              }}
+            >
+              <Typography variant="h6">{`Alarm at ${activeAlarm.time}`}</Typography>
+              <Typography variant="body1">{activeAlarm.note}</Typography>
+              <Stack direction="row" spacing={2} sx={{ mt: 2, justifyContent: "center" }}>
+                <Button variant="contained" color="error" onClick={handleTurnOff}>
+                  Turn Off
+                </Button>
+                <Button variant="outlined" color="primary" onClick={handleLater}>
+                  Later
+                </Button>
+              </Stack>
+            </motion.div>
+          </Box>
+        )}
+      </AnimatePresence>
       <audio ref={audioRef} />
     </Box>
   )
