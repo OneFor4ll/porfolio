@@ -58,7 +58,7 @@ const Main = () => {
             <ListItem button onClick={() => handleProjectClick("/alarm-page")}>
               <ListItemText primary="Alarm" />
             </ListItem>
-            <ListItem button onClick={() => handleProjectClick("/projects/project2")}>
+            <ListItem button onClick={() => handleProjectClick("/qr-page")}>
               <ListItemText primary="QR" />
             </ListItem>
             <ListItem button onClick={toggleDrawer(false)}>
