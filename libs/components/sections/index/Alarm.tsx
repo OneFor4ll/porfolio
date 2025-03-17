@@ -22,6 +22,8 @@ import Clock from "react-clock"
 import "react-clock/dist/Clock.css"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLanguage } from "./LanguageContext" // Import the useLanguage hook
+import { translations } from "@/libs/components/theme/app/translations" // Import translations
 
 interface Alarm {
   id: number
@@ -47,8 +49,11 @@ const AlarmPage: React.FC = () => {
   const [snoozeMessage, setSnoozeMessage] = useState<string | null>(null)
 
   const theme = useTheme()
-  const isTablet = useMediaQuery(theme.breakpoints.only('sm'))
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'))
+  const isTablet = useMediaQuery(theme.breakpoints.only("sm"))
+  const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
+  const { language } = useLanguage() // Use the useLanguage hook
+
+  const t = translations[language] || translations.en // Fallback to English if language is not found
 
   useEffect(() => {
     if (snoozeMessage) {
@@ -216,7 +221,6 @@ const AlarmPage: React.FC = () => {
         minute: "2-digit",
       })
 
-
       const newAlarm: Alarm = {
         id: Date.now(),
         time: snoozeFormatted,
@@ -228,7 +232,7 @@ const AlarmPage: React.FC = () => {
 
       setAlarms((prevAlarms) => [...prevAlarms, newAlarm])
 
-      setSnoozeMessage(`Alarm will ring again at ${snoozeFormatted}`)
+      setSnoozeMessage(`${t.alarmPage.snoozeMessage} ${snoozeFormatted}`)
       setTimeout(() => {
         setSnoozeMessage(null)
       }, 5 * 60 * 1000)
@@ -256,7 +260,7 @@ const AlarmPage: React.FC = () => {
         borderRadius: "8px",
         p: 1
       }}>
-        <Typography variant="h6" textAlign="center">Saved Alarms</Typography>
+        <Typography variant="h6" textAlign="center">{t.alarmPage.savedAlarms}</Typography>
         {alarms.length > 0 ? (
           <List>
             {alarms.map((alarm) => (
@@ -297,7 +301,7 @@ const AlarmPage: React.FC = () => {
             ))}
           </List>
         ) : (
-          <Typography color="gray" textAlign="center">No alarms set</Typography>
+          <Typography color="gray" textAlign="center">{t.alarmPage.noAlarmsSet}</Typography>
         )}
       </Box>
 
@@ -314,7 +318,6 @@ const AlarmPage: React.FC = () => {
             value={currentTime}
             size={isMobile ? 150 : 150}
             renderNumbers
-
           />
         </Box>
         <Typography variant="h4" sx={{ fontWeight: "bold", mt: 2 }}>
@@ -324,7 +327,7 @@ const AlarmPage: React.FC = () => {
 
       <Box display="flex" flexDirection="column" alignItems="center" gap={2} sx={{ maxWidth: isMobile ? "100%" : "300px" }}>
         <TextField
-          label="Select Time"
+          label={t.alarmPage.selectTime}
           type="time"
           value={alarmTime}
           onChange={(e) => setAlarmTime(e.target.value)}
@@ -333,7 +336,7 @@ const AlarmPage: React.FC = () => {
           fullWidth
         />
         <TextField
-          label="Alarm Note"
+          label={t.alarmPage.alarmNote}
           type="text"
           value={alarmNote}
           onChange={(e) => setAlarmNote(e.target.value)}
@@ -341,7 +344,7 @@ const AlarmPage: React.FC = () => {
         />
 
         <Typography variant="subtitle1" sx={{ mt: 1 }}>
-          Select Music:
+          {t.alarmPage.selectMusic}
         </Typography>
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton component="label">
@@ -353,11 +356,11 @@ const AlarmPage: React.FC = () => {
               style={{ display: "none" }}
             />
           </IconButton>
-          <Typography>{alarmMusic ? "Music selected" : "No music selected"}</Typography>
+          <Typography>{alarmMusic ? t.alarmPage.musicSelected : t.alarmPage.noMusicSelected}</Typography>
         </Box>
 
         <Typography variant="subtitle1" sx={{ mt: 1 }}>
-          Repeat On:
+          {t.alarmPage.repeatOn}
         </Typography>
         <ToggleButtonGroup
           value={selectedDays}
@@ -375,11 +378,11 @@ const AlarmPage: React.FC = () => {
 
         <Stack direction="row" spacing={2} sx={{ mt: 2, paddingBottom: isMobile ? 5 : 0 }}>
           <Button variant="contained" color="primary" onClick={handleSetAlarm}>
-            {editingAlarmId !== null ? "Update Alarm" : "Set Alarm"}
+            {editingAlarmId !== null ? t.alarmPage.updateAlarm : t.alarmPage.setAlarm}
           </Button>
           {editingAlarmId !== null && (
             <Button variant="outlined" color="secondary" onClick={handleCancelEdit}>
-              Cancel
+              {t.alarmPage.cancel}
             </Button>
           )}
         </Stack>
@@ -440,14 +443,14 @@ const AlarmPage: React.FC = () => {
                 boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)",
               }}
             >
-              <Typography variant="h6">{`Alarm at ${activeAlarm.time}`}</Typography>
+              <Typography variant="h6">{`${t.alarmPage.alarmRinging} ${activeAlarm.time}`}</Typography>
               <Typography variant="body1">{activeAlarm.note}</Typography>
               <Stack direction="row" spacing={2} sx={{ mt: 2, justifyContent: "center" }}>
                 <Button variant="contained" color="error" onClick={handleTurnOff}>
-                  Turn Off
+                  {t.alarmPage.turnOff}
                 </Button>
                 <Button variant="outlined" color="primary" onClick={handleLater}>
-                  Later
+                  {t.alarmPage.later}
                 </Button>
               </Stack>
             </motion.div>

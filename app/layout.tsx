@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react"
 import { ThemeProvider, createTheme, CssBaseline, Box } from "@mui/material"
 import Navbar from "./Navbar"
+import { LanguageProvider } from "@/libs/components/sections/index/LanguageContext"
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   const [darkMode, setDarkMode] = useState(false)
@@ -43,7 +44,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   )
 
   return (
-    <html lang="en">
+    <html>
       <body>
         <ThemeProvider theme={theme}>
           <CssBaseline />
@@ -60,8 +61,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               transition: "background 0.5s ease",
             }}
           />
-          <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-          {children}
+          <LanguageProvider>
+            <Navbar
+              darkMode={darkMode}
+              toggleDarkMode={toggleDarkMode}
+            />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
