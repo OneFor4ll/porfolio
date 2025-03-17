@@ -11,8 +11,6 @@ const About = () => {
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
   const { language } = useLanguage()
 
-  console.log("About component language:", language)
-
   const t = translations[language] || translations.en
 
   const aboutMeContent = [

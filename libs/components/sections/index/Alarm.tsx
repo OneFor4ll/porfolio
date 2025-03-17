@@ -22,8 +22,8 @@ import Clock from "react-clock"
 import "react-clock/dist/Clock.css"
 import MusicNoteIcon from "@mui/icons-material/MusicNote"
 import { motion, AnimatePresence } from "framer-motion"
-import { useLanguage } from "./LanguageContext" // Import the useLanguage hook
-import { translations } from "@/libs/components/theme/app/translations" // Import translations
+import { useLanguage } from "./LanguageContext"
+import { translations } from "@/libs/components/theme/app/translations"
 
 interface Alarm {
   id: number
@@ -51,9 +51,9 @@ const AlarmPage: React.FC = () => {
   const theme = useTheme()
   const isTablet = useMediaQuery(theme.breakpoints.only("sm"))
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
-  const { language } = useLanguage() // Use the useLanguage hook
+  const { language } = useLanguage()
 
-  const t = translations[language] || translations.en // Fallback to English if language is not found
+  const t = translations[language] || translations.en 
 
   useEffect(() => {
     if (snoozeMessage) {

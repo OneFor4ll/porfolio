@@ -25,7 +25,7 @@ import { useLanguage } from "@/libs/components/sections/index/LanguageContext"
 const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMode: () => void }) => {
   const router = useRouter()
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-  const { language, setLanguage } = useLanguage() // Use the useLanguage hook
+  const { language, setLanguage } = useLanguage()
 
   const email = "cebotariv20@gmail.com"
 
@@ -39,7 +39,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
   }
 
   const handleChangeLanguage = (event: SelectChangeEvent<Language>) => {
-    setLanguage(event.target.value as Language) // Update language using the context
+    setLanguage(event.target.value as Language)
   }
 
   return (
