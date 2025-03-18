@@ -34,8 +34,6 @@ interface Alarm {
   isSnoozed?: boolean
 }
 
-const DAYS_OF_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
 const AlarmPage: React.FC = () => {
   const [alarmTime, setAlarmTime] = useState("")
   const [alarmNote, setAlarmNote] = useState("")
@@ -53,7 +51,8 @@ const AlarmPage: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
   const { language } = useLanguage()
 
-  const t = translations[language] || translations.en 
+  const t = translations[language] || translations.en
+  const DAYS_OF_WEEK = t.alarmPage.daysOfWeek || ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
   useEffect(() => {
     if (snoozeMessage) {
@@ -225,7 +224,7 @@ const AlarmPage: React.FC = () => {
         id: Date.now(),
         time: snoozeFormatted,
         enabled: true,
-        note: `Snoozed`,
+        note: `${t.alarmPage.snoozeMessage}`,
         days: activeAlarm.days,
         isSnoozed: true,
       }
@@ -276,7 +275,7 @@ const AlarmPage: React.FC = () => {
                   primary={`Alarm at ${alarm.time}`}
                   secondary={
                     <>
-                      {alarm.days.includes("All") ? "All Days" : alarm.days.join(", ")}
+                      {alarm.days.includes("All") ? t.alarmPage.allDays : alarm.days.join(", ")}
                       <br />
                       {alarm.note}
                     </>
@@ -368,7 +367,7 @@ const AlarmPage: React.FC = () => {
           aria-label="day selection"
           sx={{ flexWrap: "wrap", justifyContent: "center", gap: 1 }}
         >
-          <ToggleButton value="All">All</ToggleButton>
+          <ToggleButton value="All">{t.alarmPage.buttonday}</ToggleButton>
           {DAYS_OF_WEEK.map((day) => (
             <ToggleButton key={day} value={day} aria-label={day}>
               {day}
@@ -435,7 +434,7 @@ const AlarmPage: React.FC = () => {
               exit={{ y: 50, opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{
-                backgroundColor: "#fff",
+                backgroundColor: theme.palette.background.paper,
                 padding: "20px",
                 borderRadius: "8px",
                 textAlign: "center",

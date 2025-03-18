@@ -73,7 +73,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
             >
               <MenuItem value="en">EN</MenuItem>
               <MenuItem value="pt">PT</MenuItem>
-              <MenuItem value="ru">RUS</MenuItem>
+              <MenuItem value="ru">RU</MenuItem>
             </Select>
 
             <IconButton color="inherit" href="https://github.com/OneFor4ll" target="_blank">
