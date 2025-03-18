@@ -51,6 +51,14 @@ export const translations = {
       daysOfWeek: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       allDays: "All Days",
     },
+    QrProject: "QR Code Generator",
+    qrPage: {
+      urlLabel: "Enter URL",
+      colorLabel: "Color:",
+      bgColorLabel: "Background:",
+      sizeLabel: "Size:",
+      downloadButton: "Download QR Code",
+    },
   },
   pt: {
     emailCopied: "E-mail copiado para a área de transferência!",
@@ -104,6 +112,14 @@ export const translations = {
       daysOfWeek: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"],
       allDays: "Todos os Dias",
     },
+    QrProject: "Gerador de QR Code",
+    qrPage: {
+      urlLabel: "Insira a URL",
+      colorLabel: "Cor:",
+      bgColorLabel: "Fundo:",
+      sizeLabel: "Tamanho:",
+      downloadButton: "Baixar QR Code",
+    },
   },
   ru: {
     emailCopied: "Электронная почта скопирована в буфер обмена!",
@@ -156,6 +172,14 @@ export const translations = {
       snoozeMessage: "Будильник сработает снова в",
       daysOfWeek: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"],
       allDays: "Все Дни",
+    },
+    QrProject: "Генератор QR-кода",
+    qrPage: {
+      urlLabel: "Введите URL",
+      colorLabel: "Цвет:",
+      bgColorLabel: "Фон:",
+      sizeLabel: "Размер:",
+      downloadButton: "Скачать QR-код",
     },
   },
 };

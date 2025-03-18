@@ -3,11 +3,16 @@
 import React, { useState } from "react"
 import { Box, Button, TextField, Typography, Slider, useMediaQuery, useTheme } from "@mui/material"
 import { QRCodeCanvas } from "qrcode.react"
+import { translations } from "@/libs/components/theme/app/translations"
+import { useLanguage } from "./LanguageContext"
 
-const QR: React.FC = () => {
+const QR = () => {
   const theme = useTheme()
   const isTablet = useMediaQuery(theme.breakpoints.only("sm"))
   const isMobile = useMediaQuery(theme.breakpoints.only("xs"))
+  const { language } = useLanguage()
+
+  const t = translations[language] || translations.en
 
   const [qrValue, setQrValue] = useState("")
   const [color, setColor] = useState("#000000")
@@ -39,12 +44,12 @@ const QR: React.FC = () => {
       minHeight="90vh"
       justifyContent="center"
       px={isMobile ? 2 : isTablet ? 4 : 6}
-      sx={{paddingBottom: isMobile ? 10 : isTablet ? 7 : 4, paddingTop: isMobile ? 10 : isTablet ? 7 : 4 }}
+      sx={{ paddingBottom: isMobile ? 10 : isTablet ? 7 : 4, paddingTop: isMobile ? 10 : isTablet ? 7 : 4 }}
     >
-      <Typography variant={isMobile ? "h5" : "h4"}>QR Code Generator</Typography>
+      <Typography variant={isMobile ? "h5" : "h4"}>{t.QrProject}</Typography>
 
       <TextField
-        label="Enter URL"
+        label={t.qrPage.urlLabel}
         variant="outlined"
         fullWidth
         value={qrValue}
@@ -54,7 +59,7 @@ const QR: React.FC = () => {
 
       <Box display="flex" gap={2} alignItems="center" flexDirection={isMobile ? "column" : "row"}>
         <Box display="flex" alignItems="center" gap={1}>
-          <Typography>Color:</Typography>
+          <Typography>{t.qrPage.colorLabel}</Typography>
           <TextField
             type="color"
             variant="outlined"
@@ -65,7 +70,7 @@ const QR: React.FC = () => {
         </Box>
 
         <Box display="flex" alignItems="center" gap={1}>
-          <Typography>Background:</Typography>
+          <Typography>{t.qrPage.bgColorLabel}</Typography>
           <TextField
             type="color"
             variant="outlined"
@@ -77,7 +82,7 @@ const QR: React.FC = () => {
       </Box>
 
       <Box display="flex" alignItems="center" gap={2} sx={{ width: isMobile ? "250px" : "300px" }}>
-        <Typography>Size:</Typography>
+        <Typography>{t.qrPage.sizeLabel}</Typography>
         <Slider
           value={size}
           onChange={(e, newValue) => setSize(newValue as number)}
@@ -97,7 +102,7 @@ const QR: React.FC = () => {
           </Box>
 
           <Button variant="contained" color="secondary" onClick={downloadQR}>
-            Download QR Code
+            {t.qrPage.downloadButton}
           </Button>
         </>
       )}
