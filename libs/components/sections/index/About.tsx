@@ -4,6 +4,15 @@ import React from "react"
 import { Container, Typography, Box, Avatar, Grid, Paper, useMediaQuery, useTheme } from "@mui/material"
 import { translations } from "@/libs/components/theme/app/translations"
 import { useLanguage } from "./LanguageContext"
+import { FaReact, FaNodeJs, FaJs, FaPhp, FaGitAlt, FaJava, FaDatabase, FaClipboardCheck, FaCloud } from "react-icons/fa"
+import {
+  SiTypescript,
+  SiMaterialdesign,
+  SiCodeigniter,
+  SiBootstrap,
+  SiJquery,
+  SiStorybook,
+} from "react-icons/si"
 
 const About = () => {
   const theme = useTheme()
@@ -13,11 +22,25 @@ const About = () => {
 
   const t = translations[language] || translations.en
 
-  const aboutMeContent = [
-    t.aboutMeText1,
-    t.aboutMeText2,
-    t.aboutMeText3,
-  ]
+  const skillIcons: { [key: string]: JSX.Element } = {
+    JavaScript: <FaJs />,
+    TypeScript: <SiTypescript />,
+    PHP: <FaPhp />,
+    React: <FaReact />,
+    "Material UI": <SiMaterialdesign />,
+    SQL: <FaDatabase />,
+    Java: <FaJava />,
+    CodeIgniter: <SiCodeigniter />,
+    JSON: <FaJs />,
+    Git: <FaGitAlt />,
+    Bootstrap: <SiBootstrap />,
+    jQuery: <SiJquery />,
+    Storybook: <SiStorybook />,
+    "Test Cases": <FaClipboardCheck />,
+    "Dynamics 365": <FaCloud />,
+  }
+
+  const aboutMeContent = [t.aboutMeText1, t.aboutMeText2, t.aboutMeText3]
 
   const experienceContent = [
     {
@@ -34,21 +57,6 @@ const About = () => {
       title: t.experience3Title,
       company: t.experience3Company,
       description: t.experience3Description,
-    },
-  ]
-
-  const skillsContent = [
-    {
-      category: t.skillsProgramming,
-      list: t.skillsProgrammingList,
-    },
-    {
-      category: t.skillsQA,
-      list: t.skillsQAList,
-    },
-    {
-      category: t.skillsTools,
-      list: t.skillsToolsList,
     },
   ]
 
@@ -77,29 +85,62 @@ const About = () => {
         </Box>
 
         <Grid container spacing={isMobile ? 2 : 4}>
+          {/* About Me Section */}
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 3 }}>
-              <Typography variant="h4" gutterBottom>
+            <Paper
+              elevation={3}
+              sx={{
+                p: 3,
+                borderRadius: 3,
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                backgroundColor: theme.palette.background.paper,
+                transition: "box-shadow 0.3s ease",
+                "&:hover": {
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
+                },
+              }}
+            >
+              <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
                 {t.aboutMe}
               </Typography>
               {aboutMeContent.map((text, index) => (
-                <Typography key={index} variant="body1" paragraph>
+                <Typography
+                  key={index}
+                  variant="body1"
+                  paragraph
+                  sx={{
+                    paddingBottom: 0,
+                    lineHeight: 2.1,
+                  }}
+                >
                   {text}
                 </Typography>
               ))}
             </Paper>
           </Grid>
 
+          {/* Experience Section */}
           <Grid item xs={12} md={6}>
             <Paper
-              elevation={6}
+              elevation={3}
               sx={{
-                p: isMobile ? 2 : 3,
+                p: 3,
                 borderRadius: 3,
-                backdropFilter: "blur(10px)",
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                backgroundColor: theme.palette.background.paper,
+                transition: "box-shadow 0.3s ease",
+                "&:hover": {
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
+                },
               }}
             >
-              <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
+              <Typography variant="h4" gutterBottom>
                 {t.experience}
               </Typography>
               {experienceContent.map((exp, index) => (
@@ -107,33 +148,72 @@ const About = () => {
                   <Typography component="span" fontWeight="bold">
                     {exp.title}
                   </Typography>{" "}
-                  – {exp.company} {" "}
-                  {exp.description}
+                  – {exp.company} {exp.description}
                 </Typography>
               ))}
             </Paper>
           </Grid>
 
+          {/* Technologies I Work With Section */}
           <Grid item xs={12}>
             <Paper
-              elevation={6}
+              elevation={3}
               sx={{
-                p: isMobile ? 2 : 3,
+                p: 3,
                 borderRadius: 3,
-                backdropFilter: "blur(10px)",
+                backgroundColor: theme.palette.background.paper,
+                transition: "box-shadow 0.3s ease",
+                "&:hover": {
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
+                },
               }}
             >
-              <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
-                {t.skills}
+              <Typography variant="h4" gutterBottom>
+                {t.technologiesTitle}
               </Typography>
-              {skillsContent.map((skill, index) => (
-                <Typography key={index} variant="body1" paragraph>
-                  <Typography component="span" fontWeight="bold">
-                    {skill.category}
-                  </Typography>{" "}
-                  {skill.list}
-                </Typography>
-              ))}
+              <Grid
+                container
+                spacing={1}
+                justifyContent="center"
+                sx={{ mt: 3 }}
+              >
+                {Object.entries(skillIcons).map(([tech, icon], index) => (
+                  <Grid
+                    key={tech}
+                    item
+                    xs={6}
+                    sm={4}
+                    md={3}
+                    display="flex"
+                    justifyContent="center"
+                  >
+                    <Box
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      sx={{
+                        p: 2,
+                        borderRadius: 2,
+                        width: "140px",
+                        height: "140px",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+                        "&:hover": {
+                          transform: "scale(1.1)",
+                          boxShadow: theme.palette.mode === "dark" ? "0px 8px 24px rgba(255, 255, 255, 0.1)" : "0px 8px 24px rgba(0, 0, 0, 0.2)",
+                          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.background.paper,
+                        },
+                      }}
+                    >
+                      <Box sx={{ fontSize: "2.5rem", color: theme.palette.primary.main }}>
+                        {icon}
+                      </Box>
+                      <Typography variant="body2" sx={{ mt: 1, color: theme.palette.text.primary }}>
+                        {tech}
+                      </Typography>
+                    </Box>
+                  </Grid>
+                ))}
+              </Grid>
             </Paper>
           </Grid>
         </Grid>
