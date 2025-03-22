@@ -93,7 +93,6 @@ const About = () => {
                 p: 3,
                 borderRadius: 3,
                 height: "100%",
-                display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
                 backgroundColor: theme.palette.background.paper,
@@ -103,7 +102,7 @@ const About = () => {
                 },
               }}
             >
-              <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+              <Typography variant="h4" sx={{paddingBottom:3}}>
                 {t.aboutMe}
               </Typography>
               {aboutMeContent.map((text, index) => (
@@ -112,7 +111,7 @@ const About = () => {
                   variant="body1"
                   paragraph
                   sx={{
-                    paddingBottom: 0,
+                    paddingBottom: 5,
                     lineHeight: 2.1,
                   }}
                 >
