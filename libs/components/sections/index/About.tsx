@@ -93,42 +93,6 @@ const About = () => {
                 p: 3,
                 borderRadius: 3,
                 height: "100%",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                backgroundColor: theme.palette.background.paper,
-                transition: "box-shadow 0.3s ease",
-                "&:hover": {
-                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
-                },
-              }}
-            >
-              <Typography variant="h4" sx={{paddingBottom:3}}>
-                {t.aboutMe}
-              </Typography>
-              {aboutMeContent.map((text, index) => (
-                <Typography
-                  key={index}
-                  variant="body1"
-                  paragraph
-                  sx={{
-                    paddingBottom: 5,
-                    lineHeight: 2.1,
-                  }}
-                >
-                  {text}
-                </Typography>
-              ))}
-            </Paper>
-          </Grid>
-
-          {/* Experience Section */}
-          <Grid item xs={12} md={6}>
-            <Paper
-              elevation={3}
-              sx={{
-                p: 3,
-                borderRadius: 3,
-                height: "100%",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -139,85 +103,125 @@ const About = () => {
                 },
               }}
             >
-              <Typography variant="h4" gutterBottom>
-                {t.experience}
+              <Typography
+                variant={"h4"}
+                sx={{ paddingBottom: isMobile ? 2 : 3 }}
+              >
+                {t.aboutMe}
               </Typography>
-              {experienceContent.map((exp, index) => (
-                <Typography key={index} variant="body1" paragraph>
-                  <Typography component="span" fontWeight="bold">
-                    {exp.title}
-                  </Typography>{" "}
-                  – {exp.company} {exp.description}
+              {aboutMeContent.map((text, index) => (
+                <Typography
+                  key={index}
+                  variant="body1"
+                  paragraph
+                  sx={{
+                    paddingBottom: isMobile ? 0 : 5,
+                    lineHeight: isMobile ? 1.8 : 2.1,
+                  }}
+                >
+                  {text}
                 </Typography>
               ))}
             </Paper>
           </Grid>
 
-          {/* Technologies I Work With Section */}
-          <Grid item xs={12}>
-            <Paper
-              elevation={3}
-              sx={{
-                p: 3,
-                borderRadius: 3,
-                backgroundColor: theme.palette.background.paper,
-                transition: "box-shadow 0.3s ease",
-                "&:hover": {
-                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
-                },
-              }}
-            >
-              <Typography variant="h4" gutterBottom>
-                {t.technologiesTitle}
+        {/* Experience Section */}
+        <Grid item xs={12} md={6}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              backgroundColor: theme.palette.background.paper,
+              transition: "box-shadow 0.3s ease",
+              "&:hover": {
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
+              },
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              {t.experience}
+            </Typography>
+            {experienceContent.map((exp, index) => (
+              <Typography key={index} variant="body1" paragraph>
+                <Typography component="span" fontWeight="bold">
+                  {exp.title}
+                </Typography>{" "}
+                – {exp.company} {exp.description}
               </Typography>
-              <Grid
-                container
-                spacing={1}
-                justifyContent="center"
-                sx={{ mt: 3 }}
-              >
-                {Object.entries(skillIcons).map(([tech, icon], index) => (
-                  <Grid
-                    key={tech}
-                    item
-                    xs={6}
-                    sm={4}
-                    md={3}
-                    display="flex"
-                    justifyContent="center"
-                  >
-                    <Box
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      sx={{
-                        p: 2,
-                        borderRadius: 2,
-                        width: "140px",
-                        height: "140px",
-                        transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
-                        "&:hover": {
-                          transform: "scale(1.1)",
-                          boxShadow: theme.palette.mode === "dark" ? "0px 8px 24px rgba(255, 255, 255, 0.1)" : "0px 8px 24px rgba(0, 0, 0, 0.2)",
-                          backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.background.paper,
-                        },
-                      }}
-                    >
-                      <Box sx={{ fontSize: "2.5rem", color: theme.palette.primary.main }}>
-                        {icon}
-                      </Box>
-                      <Typography variant="body2" sx={{ mt: 1, color: theme.palette.text.primary }}>
-                        {tech}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-            </Paper>
-          </Grid>
+            ))}
+          </Paper>
         </Grid>
-      </Container>
-    </Box>
+
+        {/* Technologies I Work With Section */}
+        <Grid item xs={12}>
+          <Paper
+            elevation={3}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              backgroundColor: theme.palette.background.paper,
+              transition: "box-shadow 0.3s ease",
+              "&:hover": {
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.2)",
+              },
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              {t.technologiesTitle}
+            </Typography>
+            <Grid
+              container
+              spacing={1}
+              justifyContent="center"
+              sx={{ mt: 3 }}
+            >
+              {Object.entries(skillIcons).map(([tech, icon], index) => (
+                <Grid
+                  key={tech}
+                  item
+                  xs={6}
+                  sm={4}
+                  md={3}
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    sx={{
+                      p: 2,
+                      borderRadius: 2,
+                      width: "140px",
+                      height: "140px",
+                      transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+                      "&:hover": {
+                        transform: "scale(1.1)",
+                        boxShadow: theme.palette.mode === "dark" ? "0px 8px 24px rgba(255, 255, 255, 0.1)" : "0px 8px 24px rgba(0, 0, 0, 0.2)",
+                        backgroundColor: theme.palette.mode === "dark" ? theme.palette.background.default : theme.palette.background.paper,
+                      },
+                    }}
+                  >
+                    <Box sx={{ fontSize: "2.5rem", color: theme.palette.primary.main }}>
+                      {icon}
+                    </Box>
+                    <Typography variant="body2" sx={{ mt: 1, color: theme.palette.text.primary }}>
+                      {tech}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
+    </Box >
   )
 }
 
