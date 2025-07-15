@@ -148,6 +148,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
                   justifyContent: "center",
                   alignItems: "center",
                   gap: 3,
+                  paddingTop:2
                 }}
               >
                 <IconButton
