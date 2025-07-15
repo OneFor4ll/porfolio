@@ -249,7 +249,7 @@ const AlarmPage: React.FC = () => {
       gap={isMobile ? 8 : isTablet ? 5 : 10}
       px={isMobile ? 5 : 4}
       flexDirection={isMobile ? "column" : "row"}
-      sx={{ paddingTop: isMobile ? 3 : 0 }}
+      sx={{ paddingTop: 10 }}
     >
       <Box sx={{
         maxHeight: "300px",
