@@ -12,7 +12,6 @@ import {
   Select,
   SelectChangeEvent,
   Drawer,
-  List,
   ListItem,
   ListItemText,
   Typography,

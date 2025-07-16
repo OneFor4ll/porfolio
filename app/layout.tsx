@@ -6,13 +6,11 @@ import Navbar from "./Navbar"
 import { LanguageProvider } from "@/libs/components/sections/index/LanguageContext"
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState<boolean | null>(null)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("darkMode")
-    if (savedTheme !== null) {
-      setDarkMode(savedTheme === "true")
-    }
+    setDarkMode(savedTheme === "true")
   }, [])
 
   const toggleDarkMode = () => {
@@ -23,25 +21,29 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     })
   }
 
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: darkMode ? "dark" : "light",
-          primary: {
-            main: "#63e",
-          },
-          background: {
-            default: darkMode ? "#000" : "#ffffff",
-            paper: darkMode ? "#1e1e1e" : "#f5f5f5",
-          },
-          text: {
-            primary: darkMode ? "#ffffff" : "#000000",
-          },
+  const theme = useMemo(() => {
+    if (darkMode === null) return null
+
+    return createTheme({
+      palette: {
+        mode: darkMode ? "dark" : "light",
+        primary: {
+          main: "#63e",
         },
-      }),
-    [darkMode]
-  )
+        background: {
+          default: darkMode ? "#000" : "#ffffff",
+          paper: darkMode ? "#1e1e1e" : "#f5f5f5",
+        },
+        text: {
+          primary: darkMode ? "#ffffff" : "#000000",
+        },
+      },
+    })
+  }, [darkMode])
+
+  if (darkMode === null || theme === null) {
+    return null
+  }
 
   return (
     <html>
@@ -62,10 +64,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
             }}
           />
           <LanguageProvider>
-            <Navbar
-              darkMode={darkMode}
-              toggleDarkMode={toggleDarkMode}
-            />
+            <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
             {children}
           </LanguageProvider>
         </ThemeProvider>
