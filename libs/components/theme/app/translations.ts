@@ -24,6 +24,7 @@ export const translations = {
     githubProjectsDescription: "These projects were built using PHP with the CodeIgniter framework.",
     alarmProject: "Alarm",
     qrProject: "QR",
+    GaneProject: "Mines",
     shopProject: "Shop",
     controlManagementProject: "Control Management",
     alarmPage: {
@@ -105,6 +106,7 @@ export const translations = {
     githubProjectsDescription: "Estes projetos foram construídos usando PHP com o framework CodeIgniter.",
     alarmProject: "Alarme",
     qrProject: "QR",
+    GaneProject: "Minas",
     shopProject: "Loja",
     controlManagementProject: "Gestão de Controle",
     alarmPage: {
@@ -186,6 +188,7 @@ export const translations = {
     githubProjectsDescription: "Эти проекты были созданы с использованием PHP и фреймворка CodeIgniter.",
     alarmProject: "Будильник",
     qrProject: "QR",
+    GaneProject: "Мины",
     shopProject: "Магазин",
     controlManagementProject: "Контрольное управление",
     alarmPage: {

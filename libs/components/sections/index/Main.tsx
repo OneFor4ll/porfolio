@@ -60,11 +60,17 @@ const Main = () => {
             <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: "bold" }}>
               {t.experimentsTitle}
             </Typography>
+            
             <ListItem button onClick={() => handleProjectClick("/alarm-page")}>
               <ListItemText primary={t.alarmProject} />
             </ListItem>
+
             <ListItem button onClick={() => handleProjectClick("/qr-page")}>
               <ListItemText primary={t.qrProject} />
+            </ListItem>
+
+            <ListItem button onClick={() => handleProjectClick("/minigame-page")}>
+              <ListItemText primary={t.GaneProject} />
             </ListItem>
             <Divider sx={{ my: 1 }} />
 

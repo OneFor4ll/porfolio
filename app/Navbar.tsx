@@ -80,7 +80,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
           color: iconColor,
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between"}}>
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {pathname === "/" ? (
               <>
@@ -148,7 +148,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
                   justifyContent: "center",
                   alignItems: "center",
                   gap: 3,
-                  paddingTop:2
+                  paddingTop: 2
                 }}
               >
                 <IconButton
@@ -179,6 +179,10 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
 
           <ListItem button onClick={() => handleProjectClick("/qr-page")}>
             <ListItemText primary={t.qrProject} />
+          </ListItem>
+
+          <ListItem button onClick={() => handleProjectClick("/minigame-page")}>
+            <ListItemText primary={t.GaneProject} />
           </ListItem>
 
           <Divider sx={{ my: 1 }} />
