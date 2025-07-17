@@ -1,73 +1,77 @@
-"use client";
+"use client"
 
-import { Container, Button, Typography, Box } from "@mui/material";
-import React, { useState } from "react";
+import { Container, Button, Typography, Box } from "@mui/material"
+import React, { useState } from "react"
+import { useLanguage } from "./LanguageContext"
+import { translations } from "../../theme/app/translations"
 
-const GRID_SIZE = 16; // 4x4
-const MINES_COUNT = 1;
-const GRID_COLUMNS = 4;
+const GRID_SIZE = 16 // 4x4
+const MINES_COUNT = 1
+const GRID_COLUMNS = 4
 
 type Cell = {
-  isMine: boolean;
-  isRevealed: boolean;
-};
+  isMine: boolean
+  isRevealed: boolean
+}
 
 const generateBoard = (): Cell[] => {
   const board: Cell[] = Array.from({ length: GRID_SIZE }, () => ({
     isMine: false,
     isRevealed: false,
-  }));
+  }))
 
-  let minesPlaced = 0;
+  let minesPlaced = 0
   while (minesPlaced < MINES_COUNT) {
-    const index = Math.floor(Math.random() * GRID_SIZE);
+    const index = Math.floor(Math.random() * GRID_SIZE)
     if (!board[index].isMine) {
-      board[index].isMine = true;
-      minesPlaced++;
+      board[index].isMine = true
+      minesPlaced++
     }
   }
 
-  return board;
-};
+  return board
+}
 
 const MiniGame = () => {
-  const [board, setBoard] = useState<Cell[]>(generateBoard);
-  const [gameOver, setGameOver] = useState(false);
-  const [gameWon, setGameWon] = useState(false);
+  const { language } = useLanguage()
+  const t = translations[language as keyof typeof translations]
+  const [board, setBoard] = useState<Cell[]>(generateBoard)
+  const [gameOver, setGameOver] = useState(false)
+  const [gameWon, setGameWon] = useState(false)
 
   const handleCellClick = (index: number) => {
-    if (board[index].isRevealed || gameOver || gameWon) return;
+    if (board[index].isRevealed || gameOver || gameWon) return
 
-    const newBoard = [...board];
-    newBoard[index].isRevealed = true;
+    const newBoard = [...board]
+    newBoard[index].isRevealed = true
 
     if (newBoard[index].isMine) {
-      setGameOver(true);
+      setGameOver(true)
     } else {
       const revealedSafeCells = newBoard.filter(
         (cell) => cell.isRevealed && !cell.isMine
-      ).length;
+      ).length
 
-      const totalSafeCells = GRID_SIZE - MINES_COUNT;
+      const totalSafeCells = GRID_SIZE - MINES_COUNT
 
       if (revealedSafeCells === totalSafeCells) {
-        setGameWon(true);
+        setGameWon(true)
       }
     }
 
-    setBoard(newBoard);
-  };
+    setBoard(newBoard)
+  }
 
   const resetGame = () => {
-    setBoard(generateBoard());
-    setGameOver(false);
-    setGameWon(false);
-  };
+    setBoard(generateBoard())
+    setGameOver(false)
+    setGameWon(false)
+  }
 
   return (
     <Container
       sx={{
-        minHeight: "100vh",
+        minHeight: "110vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -75,7 +79,7 @@ const MiniGame = () => {
       }}
     >
       <Typography variant="h4" gutterBottom paddingBottom={2}>
-        Mines Game
+        {t.minesGame.title}
       </Typography>
 
       <Box
@@ -104,25 +108,23 @@ const MiniGame = () => {
         ))}
       </Box>
 
-      {gameOver && (
-        <Typography variant="h6" color="error" sx={{ mb: 2 }}>
-          💀 Game Over! You hit a mine.
+      <Box sx={{ minHeight: 80, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <Typography
+          variant="h6"
+          color={gameOver ? "error" : gameWon ? "success.main" : "transparent"}
+          sx={{ mb: 2, visibility: gameOver || gameWon ? "visible" : "hidden" }}
+        >
+          {gameOver ? t.minesGame.gameOver : gameWon ? t.minesGame.gameWon : ""}
         </Typography>
-      )}
 
-      {gameWon && (
-        <Typography variant="h6" color="success.main" sx={{ mb: 2 }}>
-          🎉 You Won! All safe cells cleared!
-        </Typography>
-      )}
-
-      {(gameOver || gameWon) && (
-        <Button variant="contained" onClick={resetGame}>
-          Restart Game
-        </Button>
-      )}
+        <Box sx={{ visibility: gameOver || gameWon ? "visible" : "hidden", height: 36 }}>
+          <Button variant="contained" onClick={resetGame}>
+            {t.minesGame.restartButton}
+          </Button>
+        </Box>
+      </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default MiniGame;
+export default MiniGame

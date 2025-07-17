@@ -80,6 +80,12 @@ export const translations = {
       guest: "Guest",
       counterMessage: "The counter is at",
     },
+    minesGame: {
+      title: "Mines Game",
+      gameOver: "💀 Game Over! You hit a mine.",
+      gameWon: "🎉 You Won! All safe cells cleared!",
+      restartButton: "Restart Game",
+    },
   },
   pt: {
     emailCopied: "E-mail copiado para a área de transferência!",
@@ -162,6 +168,12 @@ export const translations = {
       guest: "Visitante",
       counterMessage: "O contador está em",
     },
+        minesGame: {
+      title: "Jogo de Minas",
+      gameOver: "💀 Fim de Jogo! Você atingiu uma mina.",
+      gameWon: "🎉 Você Venceu! Todas as células seguras foram reveladas!",
+      restartButton: "Reiniciar Jogo",
+    },
   },
   ru: {
     emailCopied: "Электронная почта скопирована в буфер обмена!",
@@ -243,6 +255,15 @@ export const translations = {
       welcomeMessage: "Привет",
       guest: "Гость",
       counterMessage: "Счетчик на",
+    },
+        minesGame: {
+      title: "Игра в Мины",
+      gameOver: "💀 Конец игры! Вы наткнулись на мину.",
+      gameWon: "🎉 Вы Победили! Все безопасные клетки открыты!",
+      restartButton: "Начать заново",
+      cellRevealed: "✅",
+      mineRevealed: "💣",
+      emptyCell: ""
     },
   },
 };
