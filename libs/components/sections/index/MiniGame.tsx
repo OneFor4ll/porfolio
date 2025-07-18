@@ -112,7 +112,9 @@ const MiniGame = () => {
         <Typography
           variant="h6"
           color={gameOver ? "error" : gameWon ? "success.main" : "transparent"}
-          sx={{ mb: 2, visibility: gameOver || gameWon ? "visible" : "hidden" }}
+          sx={{
+            mb: 2, visibility: gameOver || gameWon ? "visible" : "hidden", whiteSpace: "nowrap"
+          }}
         >
           {gameOver ? t.minesGame.gameOver : gameWon ? t.minesGame.gameWon : ""}
         </Typography>
