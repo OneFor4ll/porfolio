@@ -117,7 +117,7 @@ const MiniGame = () => {
           {gameOver ? t.minesGame.gameOver : gameWon ? t.minesGame.gameWon : ""}
         </Typography>
 
-        <Box sx={{ visibility: gameOver || gameWon ? "visible" : "hidden", height: 36 }}>
+        <Box sx={{ visibility: gameOver || gameWon ? "visible" : "hidden", height: 30 }}>
           <Button variant="contained" onClick={resetGame}>
             {t.minesGame.restartButton}
           </Button>
