@@ -25,7 +25,7 @@ export const translations = {
     alarmProject: "Alarm",
     qrProject: "QR",
     GaneProject: "Mines",
-    shopProject: "Shop",
+    ShopProject: "Shop",
     controlManagementProject: "Control Management",
     alarmPage: {
       savedAlarms: "Saved Alarms",
@@ -113,7 +113,7 @@ export const translations = {
     alarmProject: "Alarme",
     qrProject: "QR",
     GaneProject: "Minas",
-    shopProject: "Loja",
+    ShopProject: "Loja",
     controlManagementProject: "Gestão de Controle",
     alarmPage: {
       savedAlarms: "Alarmes Salvos",
@@ -201,7 +201,7 @@ export const translations = {
     alarmProject: "Будильник",
     qrProject: "QR",
     GaneProject: "Мины",
-    shopProject: "Магазин",
+    ShopProject: "Магазин",
     controlManagementProject: "Контрольное управление",
     alarmPage: {
       savedAlarms: "Сохраненные будильники",

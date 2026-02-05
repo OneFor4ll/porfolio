@@ -184,6 +184,10 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
             <ListItemText primary={t.GaneProject} />
           </ListItem>
 
+          <ListItem button onClick={() => handleProjectClick("/shop-page")}>
+            <ListItemText primary={t.ShopProject} />
+          </ListItem>
+
           <Divider sx={{ my: 1 }} />
 
           <Typography variant="subtitle1" sx={{ px: 2, py: 1, fontWeight: "bold" }}>
@@ -195,7 +199,7 @@ const Navbar = ({ darkMode, toggleDarkMode }: { darkMode: boolean; toggleDarkMod
           </Typography>
 
           <ListItem button onClick={() => handleExternalLink("https://github.com/OneFor4ll/Work/tree/main/Shop")}>
-            <ListItemText primary={t.shopProject} />
+            <ListItemText primary={t.ShopProject} />
           </ListItem>
 
           <ListItem button onClick={() => handleExternalLink("https://github.com/OneFor4ll/Work/tree/main/ControlManagement")}>
